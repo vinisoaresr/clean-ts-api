@@ -1,8 +1,6 @@
 import { SignUpController } from './signup'
-import { EmailValidator } from '../protocols'
+import { EmailValidator, AccountModel, AddAccount, AddAccountModel } from './signup-protocols'
 import { InvalidParamError, MissingParamError, ServerError } from '../errors'
-import { AccountModel } from '../../domain/models/account'
-import { AddAccount, AddAccountModel } from '../../domain/useCases/addAccount'
 
 interface sutTypes {
   sut: SignUpController
@@ -16,7 +14,7 @@ const makeAddAccount = (): AddAccount => {
         id: 'any_name',
         name: 'any_name',
         email: 'valid_email@email.com',
-        password: 'any_password'
+        password: 'valid_password'
       }
       return fakeAccount
     }
