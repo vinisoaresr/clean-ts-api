@@ -7,7 +7,7 @@ describe('Log Controller Decorator ', () => {
       async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
         const httpResponse = {
           statusCode: 200,
-          body: {}
+          body: httpRequest.body
         }
         return new Promise(resolve => resolve(httpResponse))
       }
@@ -26,6 +26,17 @@ describe('Log Controller Decorator ', () => {
     await sut.handle(httpRequest)
     expect(controllerSpy).toHaveBeenCalledWith(httpRequest)
   })
-  test('Should return a correct return of the handle controller', () => {
+  test('Should return a correct return of the handle controller', async () => {
+    const { sut } = makeSut()
+    const httpRequest = {
+      body: {
+        test: 'test'
+      }
+    }
+    const httpResponse = await sut.handle(httpRequest)
+    expect(httpResponse).toEqual({
+      statusCode: 200,
+      body: httpRequest.body
+    })
   })
 })
